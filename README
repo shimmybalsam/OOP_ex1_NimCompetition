@@ -1,0 +1,58 @@
+shimmy10
+
+
+=============================
+=      File description     =
+=============================
+Board.java - represents the board on which the Nim game is played and all of it's changes and options
+             throughout the game.
+
+Player.java - represents a single player of the game, so that the player can be of any type willed,
+              and can make moves accordingly.
+
+Move.java - represents a single move done by a player in a game of Nim.
+
+Competition.java - represents a Nim competition between two players, consisting of a given number of rounds.
+            The Competition object also keeps track of the number of victories of each player.
+
+
+
+=============================
+=          Design           =
+=============================
+I Designed all classed based on the given API.
+
+
+
+=============================
+=  Implementation details   =
+=============================
+1.
+In the Competition class, in order to switch moves between the different players, I chose to store the players,
+in array (of a small size of 2). That way the switching between turns is done in a simple and efficient manner.
+
+2.
+In the Player class, while creating the smart player, i created a helpful function which was not given in the API:
+private int sticksTogetherLeftInRow(Board board, int row).
+This function helped me find 2 neighboring unmarked sticks, as explained further in the answer of the question below.
+
+
+=============================
+=    Answers to questions   =
+=============================
+
+1)
+The smart player chooses his move using a recursive idea (though the method is not recursive!), which is that
+in order to win the other player must start his last turn with only 1 remaining stick on the board.
+In my eyes, the dominant quality of the number 1 is that it is an odd number, and so the recursive idea tells me
+that at the end of each one of the smart player's turns I want there to be an odd amount of sticks left on the board.
+In order to implement this idea I must check at the beginning of each turn of the smart player how many unmarked sticks
+are left on the board:
+- If the number is even then the smart player will mark ony one single stick as his turn,
+resulting with an odd number of unmarked sticks left at the end of his turn, as needed.
+- If the number is odd, the smart player will search the board for 2 neighboring unmarked sticks. If such a case exists,
+the smart player will mark those 2 sticks as his turn, resulting with with an odd number of unmarked sticks left at
+the end of his turn, as needed.
+I such a case does not exist then the smart player will produce a random move so that to set the odds to be 50-50
+while playing against the random player. That way, statistically there should be turns in which the previous case exists
+causing the final odds to be in the favor of the smart player.
